@@ -183,6 +183,59 @@ namespace FishStore.Controllers
         }
         #endregion
 
+        #region Gear
+        public IActionResult Gear()
+        {
+            var products = _unitOfWork.GetRepository<Gear>().GetAll();
+            var typesOfBait = _unitOfWork.GetRepository<TypeOfGear>().GetAll();
+            foreach (var item in products)
+                item.TypeOfGear = typesOfBait.Where(i => i.ID == item.TypeOfGearID).FirstOrDefault();
+            return View(products);
+        }
+
+        [HttpGet]
+        public IActionResult AddGear()
+        {
+            ViewBag.TypeOfGear = _unitOfWork.GetRepository<TypeOfGear>().GetAll();
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddGear(Gear gear)
+        {
+            _unitOfWork.GetRepository<Gear>().Insert(gear);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction("Gear");
+        }
+
+        [HttpGet]
+        public IActionResult EditGear(int id)
+        {
+            ViewBag.TypeOfGear = _unitOfWork.GetRepository<TypeOfGear>().GetAll();
+            var product = _unitOfWork.GetRepository<Gear>().GetAll()
+                .Where(product => product.ID == id).FirstOrDefault();
+            return View(product);
+        }
+
+        [HttpPost]
+        public IActionResult EditGear(Gear gear)
+        {
+            _unitOfWork.GetRepository<Gear>().Update(gear);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction("Gear");
+        }
+
+        [HttpGet]
+        public IActionResult DeleteGear(int id)
+        {
+            var product = _unitOfWork.GetRepository<Gear>().GetAll()
+                .Where(product => product.ID == id).FirstOrDefault();
+            _unitOfWork.GetRepository<Gear>().Delete(product);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction("Gear");
+        }
+        #endregion
+
         #region TypeOfRod
         public IActionResult TypeOfRod()
         {
@@ -324,6 +377,54 @@ namespace FishStore.Controllers
             _unitOfWork.GetRepository<TypeOfBait>().Delete(product);
             _unitOfWork.SaveChanges();
             return RedirectToAction("TypeOfBait");
+        }
+        #endregion
+
+        #region TypeOfGear
+        public IActionResult TypeOfGear()
+        {
+            var products = _unitOfWork.GetRepository<TypeOfGear>().GetAll();
+            return View(products);
+        }
+
+        [HttpGet]
+        public IActionResult AddTypeOfGear()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddTypeOfGear(TypeOfGear typeOfGear)
+        {
+            _unitOfWork.GetRepository<TypeOfGear>().Insert(typeOfGear);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction("TypeOfGear");
+        }
+
+        [HttpGet]
+        public IActionResult EditTypeOfGear(int id)
+        {
+            var product = _unitOfWork.GetRepository<TypeOfGear>().GetAll()
+                .Where(product => product.ID == id).FirstOrDefault();
+            return View(product);
+        }
+
+        [HttpPost]
+        public IActionResult EditTypeOfGear(TypeOfGear typeOfGear)
+        {
+            _unitOfWork.GetRepository<TypeOfGear>().Update(typeOfGear);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction("TypeOfGear");
+        }
+
+        [HttpGet]
+        public IActionResult DeleteTypeOfGear(int id)
+        {
+            var product = _unitOfWork.GetRepository<TypeOfGear>().GetAll()
+                .Where(product => product.ID == id).FirstOrDefault();
+            _unitOfWork.GetRepository<TypeOfGear>().Delete(product);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction("TypeOfGear");
         }
         #endregion
     }

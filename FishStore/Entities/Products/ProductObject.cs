@@ -29,5 +29,10 @@
         /// Gets or Sets Вес продуктв
         /// </summary>
         public double? Weight { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Описание продуктв
+        /// </summary>
+        public string Description { get; set; }
     }
 }

@@ -28,6 +28,10 @@
         <small class="form-text text-muted">Введите вес наживки в граммах.</small>
     </div>
     <div class="form-group">
+        <label asp-for="Description">Описание:</label>
+        <textarea class="form-control" asp-for="Description" placeholder="Это хороший продукт"></textarea>
+    </div>
+    <div class="form-group">
         <label asp-for="Cost">Цена:</label>
         <input class="form-control" asp-for="Cost" placeholder="1000000"/>
     </div>

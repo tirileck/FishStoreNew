@@ -1,0 +1,35 @@
+﻿@model FishStore.Entities.Products.Rod
+
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <img class="w-100 rounded" src="@Model.PhotoLink"/>
+        </div>
+        <div class="col-8">
+            <div class="display-5">@Model.Name</div>
+            <br />
+            <ul>
+                @if(Model.TypeOfRod != null) 
+                    {<li>Тип одежды: @Model.TypeOfRod</li>}
+                @if(Model.Size != null) 
+                    {<li>Размер: @Model.Size</li>}
+                @if(Model.Weight != null) 
+                    {<li>Вес: @Model.Weight</li>}
+            <br />
+            <h2 class="d-inline-block"><span class="text-primary">@Model.Cost р.</span></h2>
+            <button type="button" class="btn btn-primary d-inline-block float-right">В корзину</button>
+            <br />
+        </div>
+        <br />
+        @if(Model.Description != null) 
+            {
+                <div class="display-6">
+                    Описание: 
+                </div>
+                <div>
+                    @Model.Description
+                </div>
+            }
+    </div>
+</div>

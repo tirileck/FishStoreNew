@@ -1,23 +1,23 @@
-﻿@model FishStore.Entities.Products.Rod
+﻿@model FishStore.Entities.Products.Gear
 @{
     Layout = "_AdminLayout";
 }
 
-<h2>Изменение удочки</h2>
+<h2>Изменение снасти</h2>
 
 <form method="post">
     <div class="form-group">
         <label asp-for="Name">Название:</label>
-        <input class="form-control" asp-for="Name" placeholder="Топовая удочка"/>
+        <input class="form-control" asp-for="Name" placeholder="Лучшая снасть."/>
     </div>
     <div class="form-group">
         <label asp-for="PhotoLink">Ссылка на фото:</label>
         <input class="form-control" asp-for="PhotoLink" placeholder="https://funik.ru/wp-content/uploads/2018/10/17478da42271207e1d86.jpg"/>
     </div>
     <div class="form-group">
-        <label asp-for="TypeOfRod">Тип удочки:</label>
-        <select class="form-control" asp-for="TypeOfRodID">
-            @foreach(var type in ViewBag.TypeOfRod){
+        <label asp-for="TypeOfGear">Тип одежды:</label>
+        <select class="form-control" asp-for="TypeOfGearID">
+            @foreach(var type in ViewBag.TypeOfGear){
                 <option value="@type.ID">@type.Name</option>
             }
         </select>
@@ -29,7 +29,7 @@
     <div class="form-group">
         <label asp-for="Weight">Вес:</label>
         <input class="form-control" asp-for="Weight" placeholder="20"/>
-        <small class="form-text text-muted">Введите вес удочки в граммах.</small>
+        <small class="form-text text-muted">Введите вес снасти в граммах.</small>
     </div>
     <div class="form-group">
         <label asp-for="Description">Описание:</label>

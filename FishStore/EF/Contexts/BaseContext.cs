@@ -23,9 +23,11 @@ namespace FishStore.EF.Contextst
         public DbSet<TypeOfClothing> TypesOfClothing { get; set; }
         public DbSet<TypeOfBait> TypesOfBait { get; set; }
         public DbSet<TypeOfRod> TypesOfRod { get; set; }
+        public DbSet<TypeOfGear> TypesOfGear { get; set; }
         public DbSet<Clothing> Clothing { get; set; }
         public DbSet<Rod> Rod { get; set; }
         public DbSet<Bait> Bait { get; set; }
+        public DbSet<Gear> Gear { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -38,9 +40,11 @@ namespace FishStore.EF.Contextst
             modelBuilder.Entity<TypeOfClothing>().ToTable("TypesOfClothing");
             modelBuilder.Entity<TypeOfBait>().ToTable("TypesOfBait");
             modelBuilder.Entity<TypeOfRod>().ToTable("TypesOfRod");
+            modelBuilder.Entity<TypeOfGear>().ToTable("TypesOfGear");
             modelBuilder.Entity<Clothing>().ToTable("Clothings");
             modelBuilder.Entity<Rod>().ToTable("Rods");
             modelBuilder.Entity<Bait>().ToTable("Baits");
+            modelBuilder.Entity<Gear>().ToTable("Gears");
 
         }
     }

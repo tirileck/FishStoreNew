@@ -7,6 +7,10 @@ namespace FishStore.Entities.Products
     /// </summary>
     public class Rod : ProductObject
     {
+        public Rod()
+        {
+            TypeName = nameof(Rod);
+        }
         public virtual TypeOfRod TypeOfRod { get; set; }
         public int TypeOfRodID { get; set; }
     }

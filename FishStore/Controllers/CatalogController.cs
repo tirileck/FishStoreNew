@@ -1,23 +1,18 @@
 ﻿using Arch.EntityFrameworkCore.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 
 namespace FishStore.Controllers
 {
-    public class HomeController : Controller
+    public class CatalogController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-
-        public HomeController(IUnitOfWork unitOfWork)
+        public CatalogController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
         public IActionResult Index()
         {
             return View();
         }
-        
     }
 }
