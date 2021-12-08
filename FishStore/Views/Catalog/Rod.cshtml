@@ -1,0 +1,24 @@
+﻿@model IEnumerable<FishStore.Entities.Products.Rod>
+
+
+<br />
+<div class="container">
+    <h1 class="display-5 ">Удочки:</h1>
+    <div class="row bg-light">
+        @if (Model != null){
+            foreach(var product in Model)
+            {
+                <a href="@Url.Action("Rod", "Product", new {id = product.ID})" class="rounded p-3 col-2" style="height: 240px;">
+                    <div class="" style="background-image: url(@product.PhotoLink); height: 80%; background-size:cover; background-repeat:no-repeat;"> </div>
+                    <div>@product.Name</div>
+                    <div>@product.Cost р.</div>
+                </a>
+            }
+        }
+        else
+        {
+            <h3>Книг нема!</h3>
+        }
+
+    </div>
+</div>

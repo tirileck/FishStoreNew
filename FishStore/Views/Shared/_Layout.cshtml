@@ -23,16 +23,16 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Одежда</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Catalog" asp-action="Clothing">Одежда</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Удочки</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Catalog" asp-action="Rod">Удочки</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Снасти</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Catalog" asp-action="Gear">Снасти</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Наживка</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Catalog" asp-action="Bait">Наживка</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">О нас</a>
@@ -41,8 +41,8 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Доставка</a>
                         </li>
                         <li class="nav-item">
-                            <form method="get">
-                                <input placeholder="Топовая удочка"/>
+                            <form method="get" asp-action="Index" asp-controller="Search">
+                                <input placeholder="Топовая удочка" type="text" name="SearchString"/>
                                 <button type="submit" class="btn btn-primary">Поиск</button>
                             </form>
                         </li>

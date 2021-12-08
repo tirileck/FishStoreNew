@@ -14,9 +14,19 @@ namespace FishStore.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index(int id)
         {
-            return View();
+            if (_unitOfWork.GetRepository<Bait>().GetAll().Where(product => product.ID == id).Any())
+                return RedirectToAction("Bait", new { id = id });
+            else if (_unitOfWork.GetRepository<Clothing>().GetAll().Where(product => product.ID == id).Any())
+                return RedirectToAction("Clothing", new { id = id });
+            else if (_unitOfWork.GetRepository<Gear>().GetAll().Where(product => product.ID == id).Any())
+                return RedirectToAction("Gear", new { id = id });
+            else if (_unitOfWork.GetRepository<Rod>().GetAll().Where(product => product.ID == id).Any())
+                return RedirectToAction("Rod", new { id = id });
+            else
+                return Index(id);
         }
 
         [HttpGet]
