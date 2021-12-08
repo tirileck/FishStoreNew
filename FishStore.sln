@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.31911.260
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FishStore", "FishStore\FishStore.csproj", "{80AB5BC0-64BC-46BA-8CA5-A97C8D1640DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{80AB5BC0-64BC-46BA-8CA5-A97C8D1640DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80AB5BC0-64BC-46BA-8CA5-A97C8D1640DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80AB5BC0-64BC-46BA-8CA5-A97C8D1640DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80AB5BC0-64BC-46BA-8CA5-A97C8D1640DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C8F39DB2-48EF-4E43-A789-F67DC9AE04C4}
+	EndGlobalSection
+EndGlobal

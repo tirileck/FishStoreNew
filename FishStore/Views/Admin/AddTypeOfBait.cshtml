@@ -1,0 +1,14 @@
+﻿@model FishStore.Entities.Products.ProductDicts.TypeOfBait
+@{
+    Layout = "_AdminLayout";
+}
+
+<h2>Добавление типа наживки</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Name">Тип:</label>
+        <input class="form-control" asp-for="Name" placeholder="Живая"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+</form>

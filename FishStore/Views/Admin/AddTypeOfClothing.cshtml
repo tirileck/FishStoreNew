@@ -1,0 +1,14 @@
+﻿@model FishStore.Entities.Products.ProductDicts.TypeOfClothing
+@{
+    Layout = "_AdminLayout";
+}
+
+<h2>Добавление типа одежды</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Name">Тип:</label>
+        <input class="form-control" asp-for="Name" placeholder="Мужская"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+</form>

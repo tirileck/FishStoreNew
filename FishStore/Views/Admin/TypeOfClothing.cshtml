@@ -1,0 +1,27 @@
+﻿@model IEnumerable<FishStore.Entities.Products.ProductDicts.TypeOfClothing>
+@{
+    Layout = "_AdminLayout";
+}
+
+<h2>Типы одежды</h2>
+<a class="text-primary" asp-controller="Admin" asp-action="AddTypeOfClothing">Добавить тип Одежды</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Наименование</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(FishStore.Entities.Products.ProductDicts.TypeOfClothing type in Model){
+            <tr>
+                <th scope="row">@type.ID</th>
+                <td>@type.Name</td>
+                <td>
+                    @Html.ActionLink("Изменить", "EditTypeOfClothing", new {id = type.ID }) |
+                    @Html.ActionLink("Удалить", "DeleteTypeOfClothing", new {id = type.ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
