@@ -4,6 +4,7 @@ using FishStore.Entities.Products;
 using FishStore.Entities.Products.ProductDicts;
 using System.Collections.Generic;
 using System.Linq;
+using FishStore.Entities.Accounting;
 
 namespace FishStore.Controllers
 {
@@ -425,6 +426,107 @@ namespace FishStore.Controllers
             _unitOfWork.GetRepository<TypeOfGear>().Delete(product);
             _unitOfWork.SaveChanges();
             return RedirectToAction("TypeOfGear");
+        }
+        #endregion
+
+        #region User
+        public IActionResult User()
+        {
+            var users = _unitOfWork.GetRepository<User>().GetAll();
+            var roles = _unitOfWork.GetRepository<Role>().GetAll();
+            foreach (var item in users)
+                item.Role = roles.Where(i => i.ID == item.RoleId).FirstOrDefault();
+            return View(users);
+        }
+
+        [HttpGet]
+        public IActionResult AddUser()
+        {
+            ViewBag.Role = _unitOfWork.GetRepository<Role>().GetAll();
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddUser(User user)
+        {
+            _unitOfWork.GetRepository<User>().Insert(user);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction("User");
+        }
+
+        [HttpGet]
+        public IActionResult EditUser(int id)
+        {
+            ViewBag.Role = _unitOfWork.GetRepository<Role>().GetAll();
+            var user = _unitOfWork.GetRepository<User>().GetAll()
+                .Where(user => user.ID == id).FirstOrDefault();
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult EditUser(User user)
+        {
+            _unitOfWork.GetRepository<User>().Update(user);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction("User");
+        }
+
+        [HttpGet]
+        public IActionResult DeleteUser(int id)
+        {
+            var user = _unitOfWork.GetRepository<User>().GetAll()
+                .Where(user => user.ID == id).FirstOrDefault();
+            _unitOfWork.GetRepository<User>().Delete(user);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction("User");
+        }
+        #endregion
+
+        #region Role
+        public IActionResult Role()
+        {
+            var role = _unitOfWork.GetRepository<Role>().GetAll();
+            return View(role);
+        }
+
+        [HttpGet]
+        public IActionResult AddRole()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddRole(Role role)
+        {
+            _unitOfWork.GetRepository<Role>().Insert(role);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction("Role");
+        }
+
+        [HttpGet]
+        public IActionResult EditRole(int id)
+        {
+            var role = _unitOfWork.GetRepository<Role>().GetAll()
+                .Where(role => role.ID == id).FirstOrDefault();
+            return View(role);
+        }
+
+        [HttpPost]
+        public IActionResult EditRole(Role role)
+        {
+            _unitOfWork.GetRepository<Role>().Update(role);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction("Role");
+        }
+
+        [HttpGet]
+        public IActionResult DeleteRole(int id)
+        {
+            var role = _unitOfWork.GetRepository<Role>().GetAll()
+                .Where(role => role.ID == id).FirstOrDefault();
+            _unitOfWork.GetRepository<Role>().Delete(role);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction("Role");
         }
         #endregion
     }

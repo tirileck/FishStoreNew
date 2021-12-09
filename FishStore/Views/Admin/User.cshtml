@@ -1,0 +1,31 @@
+﻿@model IEnumerable<FishStore.Entities.Accounting.User>
+@{
+    Layout = "_AdminLayout";
+}
+
+<h2>Пользователи</h2>
+<a class="text-primary" asp-controller="Admin" asp-action="AddUser">Добавить пользователя</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">ФИО</th>
+            <th scope="col">Email</th>
+            <th scope="col">Роль</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var type in Model){
+            <tr>
+                <th scope="row">@type.ID</th>
+                <td>@type.Name</td>
+                <td>@type.Email</td>
+                <td>@type.Role.Name</td>
+                <td>
+                    @Html.ActionLink("Изменить", "EditUser", new {id = type.ID }) |
+                    @Html.ActionLink("Удалить", "DeleteUser", new {id = type.ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

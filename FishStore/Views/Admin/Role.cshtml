@@ -1,0 +1,27 @@
+﻿@model IEnumerable<FishStore.Entities.Accounting.Role>
+@{
+    Layout = "_AdminLayout";
+}
+
+<h2>Роли</h2>
+<a class="text-primary" asp-controller="Admin" asp-action="AddRole">Добавить роль</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Наименование</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var type in Model){
+            <tr>
+                <th scope="row">@type.ID</th>
+                <td>@type.Name</td>
+                <td>
+                    @Html.ActionLink("Изменить", "EditRole", new {id = type.ID }) |
+                    @Html.ActionLink("Удалить", "DeleteRole", new {id = type.ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

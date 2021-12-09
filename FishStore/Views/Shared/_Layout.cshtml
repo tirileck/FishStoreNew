@@ -52,8 +52,17 @@
                     </ul>
                 </div>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-right">
-                    <button>Войти</button>
-                    <button>Зарегистрироваться</button>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a href="@Url.Action("Profile", "Account")" class="nav-link text-dark">@User.Identity.Name</a>
+                        <a href="@Url.Action("Logout", "Account")" class="nav-link text-dark">Выйти</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Login", "Account")" class="nav-link text-dark">Войти</a>
+                        <a href="@Url.Action("Register", "Account")" class="nav-link text-dark">Зарегистрироваться</a>
+                    }
+                
                 </div>
             </div>
         </nav>

@@ -1,0 +1,12 @@
+﻿@model FishStore.Entities.Accounting.User
+
+<div class="container">
+        <div class="display-3">Профиль</div>
+        <br />
+        <br />
+        <h3>@Model.Name</h3>
+        <ul>
+            @if(Model.Email != null) 
+                {<li>Почта: @Model.Email</li>}
+        </ul>
+</div>

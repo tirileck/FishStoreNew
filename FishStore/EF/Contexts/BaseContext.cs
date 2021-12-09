@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using FishStore.Entities;
 using FishStore.Entities.Products;
 using FishStore.Entities.Products.ProductDicts;
+using FishStore.Entities.Accounting;
 
 namespace FishStore.EF.Contextst
 {
@@ -28,6 +29,8 @@ namespace FishStore.EF.Contextst
         public DbSet<Rod> Rod { get; set; }
         public DbSet<Bait> Bait { get; set; }
         public DbSet<Gear> Gear { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<User> Users { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,6 +48,11 @@ namespace FishStore.EF.Contextst
             modelBuilder.Entity<Rod>().ToTable("Rods");
             modelBuilder.Entity<Bait>().ToTable("Baits");
             modelBuilder.Entity<Gear>().ToTable("Gears");
+            modelBuilder.Entity<Role>().ToTable("Roles").HasData(
+                new Role() { ID=100, Name = "User" },
+                new Role() { ID=101, Name = "Admin" }
+            );
+            modelBuilder.Entity<User>().ToTable("Users").HasAlternateKey(u => u.Email);
 
         }
     }

@@ -1,0 +1,30 @@
+﻿@model FishStore.Entities.Accounting.User
+@{
+    Layout = "_AdminLayout";
+}
+
+<h2>Изменение юзера</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Name">ФИО:</label>
+        <input class="form-control" asp-for="Name" placeholder="Пупкин Василий Сергеевич"/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Role">Роль:</label>
+        <select class="form-control" asp-for="RoleId">
+            @foreach(var type in ViewBag.Role){
+                <option value="@type.ID">@type.Name</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email">Email:</label>
+        <input type="email" class="form-control" asp-for="Email" placeholder=""/>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password">Пароль:</label>
+        <input type="password" class="form-control" asp-for="Password" placeholder=""/>
+    </div>
+    <button type="submit" class="btn btn-primary">Измененить</button>
+</form>
