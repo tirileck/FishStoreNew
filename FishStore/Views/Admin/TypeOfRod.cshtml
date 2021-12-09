@@ -5,6 +5,10 @@
 
 <h2>Типы удочек</h2>
 <a class="text-primary" asp-controller="Admin" asp-action="AddTypeOfRod">Добавить тип удочек</a>
+<form method="get" asp-action="TypeOfRod" asp-controller="Admin">
+    <input placeholder="Удочка" type="text" name="searchText"/>
+    <button type="submit" class="btn btn-primary">Поиск</button>
+</form>
 <table class="table">
     <thead>
         <tr>

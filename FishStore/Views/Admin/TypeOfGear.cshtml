@@ -5,6 +5,10 @@
 
 <h2>Типы снастей</h2>
 <a class="text-primary" asp-controller="Admin" asp-action="AddTypeOfGear">Добавить тип Снасти</a>
+<form method="get" asp-action="TypeOfGear" asp-controller="Admin">
+    <input placeholder="Снасть" type="text" name="searchText"/>
+    <button type="submit" class="btn btn-primary">Поиск</button>
+</form>
 <table class="table">
     <thead>
         <tr>

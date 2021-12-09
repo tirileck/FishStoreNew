@@ -26,12 +26,15 @@ namespace FishStore.Controllers
         }
 
         #region Clothing
-        public IActionResult Clothing()
+        [HttpGet]
+        public IActionResult Clothing(string searchText)
         {
             var products = _unitOfWork.GetRepository<Clothing>().GetAll();
+            if (searchText != null)
+                products = products.Where(p => p.Name.Contains(searchText));
             var typesOfClothing = _unitOfWork.GetRepository<TypeOfClothing>().GetAll();
             foreach (var item in products)
-                item.TypeOfClothing = typesOfClothing.Where(i => i.ID == item.TypeOfClothingID).FirstOrDefault();   
+                item.TypeOfClothing = typesOfClothing.Where(i => i.ID == item.TypeOfClothingID).FirstOrDefault();
             return View(products);
         }
 
@@ -79,9 +82,11 @@ namespace FishStore.Controllers
         #endregion
 
         #region Rod
-        public IActionResult Rod()
+        public IActionResult Rod(string searchText)
         {
             var products = _unitOfWork.GetRepository<Rod>().GetAll();
+            if (searchText != null)
+                products = products.Where(p => p.Name.Contains(searchText));
             var typesOfRod = _unitOfWork.GetRepository<TypeOfRod>().GetAll();
             foreach (var item in products)
                 item.TypeOfRod = typesOfRod.Where(i => i.ID == item.TypeOfRodID).FirstOrDefault();
@@ -132,9 +137,11 @@ namespace FishStore.Controllers
         #endregion
 
         #region Bait
-        public IActionResult Bait()
+        public IActionResult Bait(string searchText)
         {
             var products = _unitOfWork.GetRepository<Bait>().GetAll();
+            if (searchText != null)
+                products = products.Where(p => p.Name.Contains(searchText));
             var typesOfBait = _unitOfWork.GetRepository<TypeOfBait>().GetAll();
             foreach (var item in products)
                 item.TypeOfBait = typesOfBait.Where(i => i.ID == item.TypeOfBaitID).FirstOrDefault();
@@ -185,9 +192,11 @@ namespace FishStore.Controllers
         #endregion
 
         #region Gear
-        public IActionResult Gear()
+        public IActionResult Gear(string searchText)
         {
             var products = _unitOfWork.GetRepository<Gear>().GetAll();
+            if (searchText != null)
+                products = products.Where(p => p.Name.Contains(searchText));
             var typesOfBait = _unitOfWork.GetRepository<TypeOfGear>().GetAll();
             foreach (var item in products)
                 item.TypeOfGear = typesOfBait.Where(i => i.ID == item.TypeOfGearID).FirstOrDefault();
@@ -238,9 +247,11 @@ namespace FishStore.Controllers
         #endregion
 
         #region TypeOfRod
-        public IActionResult TypeOfRod()
+        public IActionResult TypeOfRod(string searchText)
         {
             var products = _unitOfWork.GetRepository<TypeOfRod>().GetAll();
+            if (searchText != null)
+                products = products.Where(p => p.Name.Contains(searchText));
             return View(products);
         }
 
@@ -286,9 +297,11 @@ namespace FishStore.Controllers
         #endregion
 
         #region TypeOfClothing
-        public IActionResult TypeOfClothing()
+        public IActionResult TypeOfClothing(string searchText)
         {
             var products = _unitOfWork.GetRepository<TypeOfClothing>().GetAll();
+            if (searchText != null)
+                products = products.Where(p => p.Name.Contains(searchText));
             return View(products);
         }
 
@@ -334,9 +347,11 @@ namespace FishStore.Controllers
         #endregion
 
         #region TypeOfBait
-        public IActionResult TypeOfBait()
+        public IActionResult TypeOfBait(string searchText)
         {
             var products = _unitOfWork.GetRepository<TypeOfBait>().GetAll();
+            if (searchText != null)
+                products = products.Where(p => p.Name.Contains(searchText));
             return View(products);
         }
 
@@ -382,9 +397,11 @@ namespace FishStore.Controllers
         #endregion
 
         #region TypeOfGear
-        public IActionResult TypeOfGear()
+        public IActionResult TypeOfGear(string searchText)
         {
             var products = _unitOfWork.GetRepository<TypeOfGear>().GetAll();
+            if (searchText != null)
+                products = products.Where(p => p.Name.Contains(searchText));
             return View(products);
         }
 
@@ -430,9 +447,11 @@ namespace FishStore.Controllers
         #endregion
 
         #region User
-        public IActionResult User()
+        public IActionResult User(string searchText)
         {
             var users = _unitOfWork.GetRepository<User>().GetAll();
+            if (searchText != null)
+                users = users.Where(p => p.Name.Contains(searchText));
             var roles = _unitOfWork.GetRepository<Role>().GetAll();
             foreach (var item in users)
                 item.Role = roles.Where(i => i.ID == item.RoleId).FirstOrDefault();
@@ -483,10 +502,12 @@ namespace FishStore.Controllers
         #endregion
 
         #region Role
-        public IActionResult Role()
+        public IActionResult Role(string searchText)
         {
-            var role = _unitOfWork.GetRepository<Role>().GetAll();
-            return View(role);
+            var roles = _unitOfWork.GetRepository<Role>().GetAll();
+            if (searchText != null)
+                roles = roles.Where(p => p.Name.Contains(searchText));
+            return View(roles);
         }
 
         [HttpGet]

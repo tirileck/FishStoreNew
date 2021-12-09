@@ -5,6 +5,10 @@
 
 <h2>Роли</h2>
 <a class="text-primary" asp-controller="Admin" asp-action="AddRole">Добавить роль</a>
+<form method="get" asp-action="Role" asp-controller="Admin">
+    <input placeholder="user" type="text" name="searchText"/>
+    <button type="submit" class="btn btn-primary">Поиск</button>
+</form>
 <table class="table">
     <thead>
         <tr>

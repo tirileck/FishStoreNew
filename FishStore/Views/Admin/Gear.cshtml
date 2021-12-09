@@ -5,6 +5,10 @@
 
 <h2>Снасти</h2>
 <a class="text-primary" asp-controller="Admin" asp-action="AddGear">Добавить снасть</a>
+<form method="get" asp-action="Gear" asp-controller="Admin">
+    <input placeholder="Снасть" type="text" name="searchText"/>
+    <button type="submit" class="btn btn-primary">Поиск</button>
+</form>
 <table class="table">
     <thead>
         <tr>

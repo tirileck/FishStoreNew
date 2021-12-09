@@ -5,6 +5,10 @@
 
 <h2>Типы одежды</h2>
 <a class="text-primary" asp-controller="Admin" asp-action="AddTypeOfClothing">Добавить тип Одежды</a>
+<form method="get" asp-action="TypeOfClothing" asp-controller="Admin">
+    <input placeholder="Пуховик" type="text" name="searchText"/>
+    <button type="submit" class="btn btn-primary">Поиск</button>
+</form>
 <table class="table">
     <thead>
         <tr>

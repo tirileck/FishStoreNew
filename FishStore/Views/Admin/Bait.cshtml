@@ -5,6 +5,10 @@
 
 <h2>Наживка</h2>
 <a class="text-primary" asp-controller="Admin" asp-action="AddBait">Добавить наживку</a>
+<form method="get" asp-action="Bait" asp-controller="Admin">
+    <input placeholder="Червь" type="text" name="searchText"/>
+    <button type="submit" class="btn btn-primary">Поиск</button>
+</form>
 <table class="table">
     <thead>
         <tr>

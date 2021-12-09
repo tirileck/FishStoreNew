@@ -5,6 +5,10 @@
 
 <h2>Пользователи</h2>
 <a class="text-primary" asp-controller="Admin" asp-action="AddUser">Добавить пользователя</a>
+<form method="get" asp-action="User" asp-controller="Admin">
+    <input placeholder="Григорий" type="text" name="searchText"/>
+    <button type="submit" class="btn btn-primary">Поиск</button>
+</form>
 <table class="table">
     <thead>
         <tr>
