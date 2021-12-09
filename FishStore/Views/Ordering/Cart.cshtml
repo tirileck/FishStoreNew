@@ -1,0 +1,140 @@
+﻿@model FishStore.Models.Ordering.CartModel
+
+<div class="container">
+    <div class="display-3">Корзина</div>
+    <section class="h-100 gradient-custom">
+        <div class="container py-5">
+        <div class="row d-flex justify-content-center my-4">
+            <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header py-3">
+                <h5 class="mb-0 d-inline-block">@Model.Count элемента</h5>
+                @if(Model.Count > 0){
+                <a href="@Url.Action("ClearCart", "Ordering")" class="btn btn-primary d-inline-block">Очистить корзину</a>
+                }
+                </div>
+                <div class="card-body">
+                @foreach(var item in Model.Carts)
+                {
+                    <!-- Single item -->
+                    <div class="row">
+                    
+                        <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                        <!-- Image -->
+                        <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                            <img src="@item.Product.PhotoLink"
+                            class="w-100" />
+                            <a href="#!">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                            </a>
+                        </div>
+                        <!-- Image -->
+                        </div>
+
+                        <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                        <!-- Data -->
+                        <p><strong>@item.Product.Name</strong></p>
+                        <a href="@Url.Action("RemoveCartProduct", "Ordering", new {cartId = item.ID})">
+                            <button type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
+                                title="Удалить">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                        </a>
+                        <!-- Data -->
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                        <!-- Quantity -->
+                        <div class="d-flex mb-4" style="max-width: 300px">
+                            <a href="@Url.Action("DecCountToCartProduct", "Ordering", new {cartId = item.ID})">
+                                <button class="btn btn-primary px-3 me-2"
+                                onclick="this.parentNode.parentNode.querySelector('input[type=number]').stepDown()">
+                                <i class="fa fa-minus"></i>
+                                </button>
+                            </a>
+
+                            <div class="form-outline">
+                            <input id="form1" min="0" name="quantity" value="@item.Count" type="number" class="form-control" disabled />
+                            <label class="form-label" for="form1">Количество</label>
+                            </div>
+
+                            <a href="@Url.Action("IncCountToCartProduct", "Ordering", new {cartId = item.ID})">
+                                <button type="submit" class="btn btn-primary px-3 ms-2 "
+                                onclick="this.parentNode.parentNode.querySelector('input[type=number]').stepUp()">
+                                <i class="fa fa-plus"></i>
+                                </button>
+                            </a>
+                        </div>
+                        <!-- Quantity -->
+
+                        <!-- Price -->
+                        <p class="text-start text-md-center">
+                            <strong>@item.Product.Cost р.</strong>
+                        </p>
+                        <!-- Price -->
+                        </div>
+                    </div>
+                    <!-- Single item -->
+
+                    <hr class="my-4" />             
+                }
+
+
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-body">
+                <p><strong>Рассчитываемая дата доставки</strong></p>
+                <p class="mb-0">@Model.ExpectedShippingDate.ToShortDateString()</p>
+                </div>
+            </div>
+
+            </div>
+            <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header py-3">
+                <h5 class="mb-0">Итого:</h5>
+                </div>
+                <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li
+                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                    Продукты на
+                    <span>@Model.Price р.</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                    Доставка
+                    <span>Почта России</span>
+                    </li>
+                    <li
+                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                    <div>
+                        <strong>Итоговая сумма</strong>
+                        <strong>
+                        <p class="mb-0">(Не включая доставку)</p>
+                        </strong>
+                    </div>
+                    <span><strong>@Model.Price р.</strong></span>
+                    </li>
+                </ul>
+                
+                @if(Model.Count == 0)
+                {
+                    <button type="button" class="btn btn-primary btn-lg btn-block disabled" >
+                        Оформить заказ
+                    </button>
+                } else {
+                    <a href="@Url.Action("AddOrder", "Ordering")">
+                        <button type="button" class="btn btn-primary btn-lg btn-block " >
+                            Оформить заказ
+                        </button>
+                    </a>
+                }
+                            
+                </div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </section>
+</div>

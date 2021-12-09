@@ -4,14 +4,16 @@ using FishStore.EF.Contextst;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FishStore.Migrations
 {
     [DbContext(typeof(BaseContext))]
-    partial class BaseContextModelSnapshot : ModelSnapshot
+    [Migration("20211209194906_AddOrderObjects")]
+    partial class AddOrderObjects
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,35 +144,6 @@ namespace FishStore.Migrations
                         });
                 });
 
-            modelBuilder.Entity("FishStore.Entities.Ordering.OrderDicts.OrderStatus", b =>
-                {
-                    b.HasBaseType("FishStore.Entities.DictObject");
-
-                    b.ToTable("OrderStatuses");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 102,
-                            Name = "Новый"
-                        },
-                        new
-                        {
-                            ID = 103,
-                            Name = "В обработке"
-                        },
-                        new
-                        {
-                            ID = 104,
-                            Name = "Передан в доставку"
-                        },
-                        new
-                        {
-                            ID = 105,
-                            Name = "Доставлен"
-                        });
-                });
-
             modelBuilder.Entity("FishStore.Entities.Products.ProductDicts.TypeOfBait", b =>
                 {
                     b.HasBaseType("FishStore.Entities.DictObject");
@@ -203,19 +176,8 @@ namespace FishStore.Migrations
                 {
                     b.HasBaseType("FishStore.Entities.TypeObject");
 
-                    b.Property<string>("Adress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("Cost")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("OrderStatusId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
-
-                    b.HasIndex("OrderStatusId");
 
                     b.HasIndex("UserId");
 
@@ -382,15 +344,6 @@ namespace FishStore.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FishStore.Entities.Ordering.OrderDicts.OrderStatus", b =>
-                {
-                    b.HasOne("FishStore.Entities.DictObject", null)
-                        .WithOne()
-                        .HasForeignKey("FishStore.Entities.Ordering.OrderDicts.OrderStatus", "ID")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("FishStore.Entities.Products.ProductDicts.TypeOfBait", b =>
                 {
                     b.HasOne("FishStore.Entities.DictObject", null)
@@ -435,15 +388,9 @@ namespace FishStore.Migrations
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
-                    b.HasOne("FishStore.Entities.Ordering.OrderDicts.OrderStatus", "OrderStatus")
-                        .WithMany()
-                        .HasForeignKey("OrderStatusId");
-
                     b.HasOne("FishStore.Entities.Accounting.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId");
-
-                    b.Navigation("OrderStatus");
 
                     b.Navigation("User");
                 });

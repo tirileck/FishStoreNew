@@ -1,0 +1,38 @@
+﻿@model FishStore.Entities.Ordering.Order
+@{
+    Layout = "_AdminLayout";
+}
+
+<h2>Заказ №@Model.ID</h2>
+<ul>
+    <li>Заказчик: @Model.User.Name</li>
+    <li>Дата заказа: @Model.CreateDate.ToString()</li>
+    <li>Адрес: @Model.Adress</li>
+    <li>Статус: @Model.OrderStatus.Name</li>
+    <li>Сумма: @Model.Cost</li>
+</ul>
+<h2>Товары в заказе</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Наименование</th>
+            <th scope="col">Размер</th>
+            <th scope="col">Вес</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Цена</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var type in ViewBag.OrderItems){
+            <tr>
+                <th scope="row">@type.ID</th>
+                <td>@type.Product.Name</td>
+                <td>@type.Product.Size</td>
+                <td>@type.Product.Weight</td>
+                <td>@type.Count</td>
+                <td>@type.Product.Cost р.</td>
+            </tr>
+        }
+    </tbody>
+</table>

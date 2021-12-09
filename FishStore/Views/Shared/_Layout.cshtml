@@ -46,14 +46,18 @@
                                 <button type="submit" class="btn btn-primary">Поиск</button>
                             </form>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Админка</a>
-                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Админка</a>
+                            </li>
+                        }
                     </ul>
                 </div>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-right">
                     @if (User.Identity.IsAuthenticated)
                     {
+                        <a href="@Url.Action("Cart", "Ordering")" class="nav-link text-dark">Корзина</a>
                         <a href="@Url.Action("Profile", "Account")" class="nav-link text-dark">@User.Identity.Name</a>
                         <a href="@Url.Action("Logout", "Account")" class="nav-link text-dark">Выйти</a>
                     }
@@ -81,6 +85,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://use.fontawesome.com/59bfd9ebd2.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

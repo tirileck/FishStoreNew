@@ -4,14 +4,16 @@ using FishStore.EF.Contextst;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FishStore.Migrations
 {
     [DbContext(typeof(BaseContext))]
-    partial class BaseContextModelSnapshot : ModelSnapshot
+    [Migration("20211209202508_AddOrderStatus")]
+    partial class AddOrderStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,16 +208,13 @@ namespace FishStore.Migrations
                     b.Property<string>("Adress")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("Cost")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("OrderStatusId")
+                    b.Property<int?>("OrderStatusID")
                         .HasColumnType("int");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.HasIndex("OrderStatusId");
+                    b.HasIndex("OrderStatusID");
 
                     b.HasIndex("UserId");
 
@@ -437,7 +436,7 @@ namespace FishStore.Migrations
 
                     b.HasOne("FishStore.Entities.Ordering.OrderDicts.OrderStatus", "OrderStatus")
                         .WithMany()
-                        .HasForeignKey("OrderStatusId");
+                        .HasForeignKey("OrderStatusID");
 
                     b.HasOne("FishStore.Entities.Accounting.User", "User")
                         .WithMany("Orders")

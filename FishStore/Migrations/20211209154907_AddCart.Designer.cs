@@ -4,14 +4,16 @@ using FishStore.EF.Contextst;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FishStore.Migrations
 {
     [DbContext(typeof(BaseContext))]
-    partial class BaseContextModelSnapshot : ModelSnapshot
+    [Migration("20211209154907_AddCart")]
+    partial class AddCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,17 +62,7 @@ namespace FishStore.Migrations
                     b.ToTable("BaseObjects");
                 });
 
-            modelBuilder.Entity("FishStore.Entities.DictObject", b =>
-                {
-                    b.HasBaseType("FishStore.Entities.BaseObject");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToTable("DictObjects");
-                });
-
-            modelBuilder.Entity("FishStore.Entities.Ordering.Cart", b =>
+            modelBuilder.Entity("BookStore.Entities.Ordering.Cart", b =>
                 {
                     b.HasBaseType("FishStore.Entities.BaseObject");
 
@@ -90,24 +82,14 @@ namespace FishStore.Migrations
                     b.ToTable("Carts");
                 });
 
-            modelBuilder.Entity("FishStore.Entities.Ordering.OrderItem", b =>
+            modelBuilder.Entity("FishStore.Entities.DictObject", b =>
                 {
                     b.HasBaseType("FishStore.Entities.BaseObject");
 
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderItems");
+                    b.ToTable("DictObjects");
                 });
 
             modelBuilder.Entity("FishStore.Entities.TypeObject", b =>
@@ -142,35 +124,6 @@ namespace FishStore.Migrations
                         });
                 });
 
-            modelBuilder.Entity("FishStore.Entities.Ordering.OrderDicts.OrderStatus", b =>
-                {
-                    b.HasBaseType("FishStore.Entities.DictObject");
-
-                    b.ToTable("OrderStatuses");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 102,
-                            Name = "Новый"
-                        },
-                        new
-                        {
-                            ID = 103,
-                            Name = "В обработке"
-                        },
-                        new
-                        {
-                            ID = 104,
-                            Name = "Передан в доставку"
-                        },
-                        new
-                        {
-                            ID = 105,
-                            Name = "Доставлен"
-                        });
-                });
-
             modelBuilder.Entity("FishStore.Entities.Products.ProductDicts.TypeOfBait", b =>
                 {
                     b.HasBaseType("FishStore.Entities.DictObject");
@@ -199,29 +152,6 @@ namespace FishStore.Migrations
                     b.ToTable("TypesOfRod");
                 });
 
-            modelBuilder.Entity("FishStore.Entities.Ordering.Order", b =>
-                {
-                    b.HasBaseType("FishStore.Entities.TypeObject");
-
-                    b.Property<string>("Adress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("Cost")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("OrderStatusId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("OrderStatusId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Orders");
-                });
-
             modelBuilder.Entity("FishStore.Entities.Products.ProductObject", b =>
                 {
                     b.HasBaseType("FishStore.Entities.TypeObject");
@@ -235,9 +165,6 @@ namespace FishStore.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("OrderID")
-                        .HasColumnType("int");
-
                     b.Property<string>("PhotoLink")
                         .HasColumnType("nvarchar(max)");
 
@@ -246,8 +173,6 @@ namespace FishStore.Migrations
 
                     b.Property<double?>("Weight")
                         .HasColumnType("float");
-
-                    b.HasIndex("OrderID");
 
                     b.ToTable("ProductObjects");
                 });
@@ -309,20 +234,11 @@ namespace FishStore.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("FishStore.Entities.DictObject", b =>
+            modelBuilder.Entity("BookStore.Entities.Ordering.Cart", b =>
                 {
                     b.HasOne("FishStore.Entities.BaseObject", null)
                         .WithOne()
-                        .HasForeignKey("FishStore.Entities.DictObject", "ID")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FishStore.Entities.Ordering.Cart", b =>
-                {
-                    b.HasOne("FishStore.Entities.BaseObject", null)
-                        .WithOne()
-                        .HasForeignKey("FishStore.Entities.Ordering.Cart", "ID")
+                        .HasForeignKey("BookStore.Entities.Ordering.Cart", "ID")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
 
@@ -343,25 +259,13 @@ namespace FishStore.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("FishStore.Entities.Ordering.OrderItem", b =>
+            modelBuilder.Entity("FishStore.Entities.DictObject", b =>
                 {
                     b.HasOne("FishStore.Entities.BaseObject", null)
                         .WithOne()
-                        .HasForeignKey("FishStore.Entities.Ordering.OrderItem", "ID")
+                        .HasForeignKey("FishStore.Entities.DictObject", "ID")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
-
-                    b.HasOne("FishStore.Entities.Ordering.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId");
-
-                    b.HasOne("FishStore.Entities.Products.ProductObject", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("FishStore.Entities.TypeObject", b =>
@@ -378,15 +282,6 @@ namespace FishStore.Migrations
                     b.HasOne("FishStore.Entities.DictObject", null)
                         .WithOne()
                         .HasForeignKey("FishStore.Entities.Accounting.Role", "ID")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("FishStore.Entities.Ordering.OrderDicts.OrderStatus", b =>
-                {
-                    b.HasOne("FishStore.Entities.DictObject", null)
-                        .WithOne()
-                        .HasForeignKey("FishStore.Entities.Ordering.OrderDicts.OrderStatus", "ID")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });
@@ -427,27 +322,6 @@ namespace FishStore.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("FishStore.Entities.Ordering.Order", b =>
-                {
-                    b.HasOne("FishStore.Entities.TypeObject", null)
-                        .WithOne()
-                        .HasForeignKey("FishStore.Entities.Ordering.Order", "ID")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
-
-                    b.HasOne("FishStore.Entities.Ordering.OrderDicts.OrderStatus", "OrderStatus")
-                        .WithMany()
-                        .HasForeignKey("OrderStatusId");
-
-                    b.HasOne("FishStore.Entities.Accounting.User", "User")
-                        .WithMany("Orders")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("OrderStatus");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("FishStore.Entities.Products.ProductObject", b =>
                 {
                     b.HasOne("FishStore.Entities.TypeObject", null)
@@ -455,10 +329,6 @@ namespace FishStore.Migrations
                         .HasForeignKey("FishStore.Entities.Products.ProductObject", "ID")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
-
-                    b.HasOne("FishStore.Entities.Ordering.Order", null)
-                        .WithMany("Products")
-                        .HasForeignKey("OrderID");
                 });
 
             modelBuilder.Entity("FishStore.Entities.Products.Bait", b =>
@@ -527,16 +397,6 @@ namespace FishStore.Migrations
                         .IsRequired();
 
                     b.Navigation("TypeOfRod");
-                });
-
-            modelBuilder.Entity("FishStore.Entities.Accounting.User", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("FishStore.Entities.Ordering.Order", b =>
-                {
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

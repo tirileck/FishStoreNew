@@ -1,0 +1,31 @@
+﻿@model IEnumerable<FishStore.Entities.Ordering.OrderDicts.OrderStatus>
+@{
+    Layout = "_AdminLayout";
+}
+
+<h2>Статусы заказов</h2>
+<a class="text-primary" asp-controller="Admin" asp-action="AddOrderStatus">Добавить статус заказа</a>
+<form method="get" asp-action="OrderStatius" asp-controller="Admin">
+    <input placeholder="Статус" type="text" name="searchText"/>
+    <button type="submit" class="btn btn-primary">Поиск</button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Наименование</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var type in Model){
+            <tr>
+                <th scope="row">@type.ID</th>
+                <td>@type.Name</td>
+                <td>
+                    @Html.ActionLink("Изменить", "EditOrderStatus", new {id = type.ID }) |
+                    @Html.ActionLink("Удалить", "DeleteOrderStatus", new {id = type.ID })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

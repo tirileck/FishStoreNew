@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Arch.EntityFrameworkCore.UnitOfWork;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FishStore.Controllers
 {
@@ -26,6 +27,7 @@ namespace FishStore.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Profile()
         {
             if (User.Identity.IsAuthenticated)

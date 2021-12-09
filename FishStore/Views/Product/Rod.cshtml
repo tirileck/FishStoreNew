@@ -18,7 +18,7 @@
                     {<li>Вес: @Model.Weight</li>}
             <br />
             <h2 class="d-inline-block"><span class="text-primary">@Model.Cost р.</span></h2>
-            <button type="button" class="btn btn-primary d-inline-block float-right">В корзину</button>
+            <a href="@Url.Action("AddToCart", "Ordering", new {id = @Model.ID})" class="btn btn-primary">В корзину</a>
             <br />
         </div>
         <br />

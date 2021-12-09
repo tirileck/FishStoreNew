@@ -5,9 +5,13 @@ using FishStore.Entities.Products.ProductDicts;
 using System.Collections.Generic;
 using System.Linq;
 using FishStore.Entities.Accounting;
+using Microsoft.AspNetCore.Authorization;
+using FishStore.Entities.Ordering.OrderDicts;
+using FishStore.Entities.Ordering;
 
 namespace FishStore.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -548,6 +552,127 @@ namespace FishStore.Controllers
             _unitOfWork.GetRepository<Role>().Delete(role);
             _unitOfWork.SaveChanges();
             return RedirectToAction("Role");
+        }
+        #endregion
+
+        #region OrderStatus
+
+        public IActionResult OrderStatus(string searchText)
+        {
+            var roles = _unitOfWork.GetRepository<OrderStatus>().GetAll();
+            if (searchText != null)
+                roles = roles.Where(p => p.Name.Contains(searchText));
+            return View(roles);
+        }
+
+        [HttpGet]
+        public IActionResult AddOrderStatus()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddOrderStatus(OrderStatus orderStatus)
+        {
+            _unitOfWork.GetRepository<OrderStatus>().Insert(orderStatus);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction("OrderStatus");
+        }
+
+        [HttpGet]
+        public IActionResult EditOrderStatus(int id)
+        {
+            var orderStatus = _unitOfWork.GetRepository<OrderStatus>().GetAll()
+                .Where(orderStatus => orderStatus.ID == id).FirstOrDefault();
+            return View(orderStatus);
+        }
+
+        [HttpPost]
+        public IActionResult EditOrderStatus(OrderStatus orderStatus)
+        {
+            _unitOfWork.GetRepository<OrderStatus>().Update(orderStatus);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction("OrderStatus");
+        }
+
+        [HttpGet]
+        public IActionResult DeleteOrderStatus(int id)
+        {
+            var orderStatus = _unitOfWork.GetRepository<OrderStatus>().GetAll()
+                .Where(orderStatus => orderStatus.ID == id).FirstOrDefault();
+            _unitOfWork.GetRepository<OrderStatus>().Delete(orderStatus);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction("OrderStatus");
+        }
+        #endregion
+
+        #region Order
+        public IActionResult Order(string searchText)
+        {
+            var usersRepo = _unitOfWork.GetRepository<User>();
+            var orders = _unitOfWork.GetRepository<Order>().GetAll();
+            if (searchText != null)
+                orders = orders.Where(p => p.User.Name.Contains(searchText));
+            
+            var orderStatuses = _unitOfWork.GetRepository<OrderStatus>().GetAll();
+            foreach (var item in orders)
+            {
+                item.User = usersRepo.GetAll().Where(user => user.ID == item.UserId).FirstOrDefault();
+                item.OrderStatus = orderStatuses.Where(i => i.ID == item.OrderStatusId).FirstOrDefault();
+            }
+            return View(orders);
+        }
+
+
+        [HttpGet]
+        public IActionResult EditOrderDetails(int id)
+        {
+            ViewBag.OrderStatuses = _unitOfWork.GetRepository<OrderStatus>().GetAll();
+            var order = _unitOfWork.GetRepository<Order>().GetAll()
+                .Where(order => order.ID == id).FirstOrDefault();
+            return View(order);
+        }
+
+        [HttpPost]
+        public IActionResult EditOrderDetails(Order order)
+        {
+            _unitOfWork.GetRepository<Order>().Update(order);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction("Order");
+        }
+
+        [HttpGet]
+        public IActionResult AboutOrder(int id)
+        {
+            var order = _unitOfWork.GetRepository<Order>().GetAll()
+                .Where(order => order.ID == id).FirstOrDefault();
+            order.User = _unitOfWork.GetRepository<User>().GetAll()
+                .Where(user => user.ID == order.UserId).FirstOrDefault();
+            order.OrderStatus = _unitOfWork.GetRepository<OrderStatus>().GetAll()
+                .Where(orderStatus => orderStatus.ID == order.OrderStatusId).FirstOrDefault();
+            var orderItems = _unitOfWork.GetRepository<OrderItem>().GetAll()
+                .Where(orderItem => orderItem.OrderId == id);
+            foreach(var item in orderItems)
+            {
+                item.Product = _unitOfWork.GetRepository<ProductObject>().GetAll()
+                .Where(product => product.ID == item.ProductId).FirstOrDefault();
+            }
+            ViewBag.OrderItems = orderItems;
+            return View(order);
+        }
+
+        [HttpGet]
+        public IActionResult DeleteOrder(int id)
+        {
+            var order = _unitOfWork.GetRepository<Order>().GetAll()
+                .Where(order => order.ID == id).FirstOrDefault();
+            var orderItems = _unitOfWork.GetRepository<OrderItem>().GetAll()
+                .Where(order => order.OrderId == id);
+            _unitOfWork.GetRepository<Order>().Delete(order);
+            foreach(var item in orderItems)
+                _unitOfWork.GetRepository<OrderItem>().Delete(item);
+            _unitOfWork.SaveChanges();
+            return RedirectToAction("Order");
         }
         #endregion
     }

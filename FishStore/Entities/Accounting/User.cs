@@ -1,9 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FishStore.Entities.Ordering;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FishStore.Entities.Accounting
 {
     public class User
     {
+        public User()
+        {
+            Orders = new List<Order>();
+        }
         /// <summary>
         /// Получает или задает ИД
         /// </summary>
@@ -36,5 +42,7 @@ namespace FishStore.Entities.Accounting
         /// Получает или задаеи Id роли
         /// </summary>
         public int? RoleId { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
     }
 }

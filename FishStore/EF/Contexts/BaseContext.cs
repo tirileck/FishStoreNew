@@ -8,6 +8,8 @@ using FishStore.Entities;
 using FishStore.Entities.Products;
 using FishStore.Entities.Products.ProductDicts;
 using FishStore.Entities.Accounting;
+using FishStore.Entities.Ordering;
+using FishStore.Entities.Ordering.OrderDicts;
 
 namespace FishStore.EF.Contextst
 {
@@ -31,6 +33,10 @@ namespace FishStore.EF.Contextst
         public DbSet<Gear> Gear { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderStatus> OrderStatuses { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -53,6 +59,15 @@ namespace FishStore.EF.Contextst
                 new Role() { ID=101, Name = "Admin" }
             );
             modelBuilder.Entity<User>().ToTable("Users").HasAlternateKey(u => u.Email);
+            modelBuilder.Entity<Cart>().ToTable("Carts");
+            modelBuilder.Entity<OrderItem>().ToTable("OrderItems");
+            modelBuilder.Entity<Order>().ToTable("Orders");
+            modelBuilder.Entity<OrderStatus>().ToTable("OrderStatuses").HasData(
+                new OrderStatus() { ID = 102, Name = "Новый" },
+                new OrderStatus() { ID = 103, Name = "В обработке" },
+                new OrderStatus() { ID = 104, Name = "Передан в доставку" },
+                new OrderStatus() { ID = 105, Name = "Доставлен" }
+            );
 
         }
     }

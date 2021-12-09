@@ -1,0 +1,14 @@
+﻿@model FishStore.Entities.Ordering.OrderDicts.OrderStatus
+@{
+    Layout = "_AdminLayout";
+}
+
+<h2>Изменение статуса заказа</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Name">Статус:</label>
+        <input class="form-control" asp-for="Name" placeholder="Собираем"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Изменить</button>
+</form>
