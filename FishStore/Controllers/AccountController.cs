@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Arch.EntityFrameworkCore.UnitOfWork;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using FishStore.Entities.Ordering;
+using FishStore.Entities.Ordering.OrderDicts;
+using FishStore.Entities.Products;
 
 namespace FishStore.Controllers
 {
@@ -34,6 +37,16 @@ namespace FishStore.Controllers
             {
                 var user = _unitOfWork.GetRepository<User>().GetAll()
                     .Where(user => user.Email == User.Identity.Name).FirstOrDefault();
+
+                var orders = _unitOfWork.GetRepository<Order>().GetAll()
+                   .Where(order => order.UserId == user.ID);
+                foreach(var order in orders)
+                {
+                    order.OrderStatus = _unitOfWork.GetRepository<OrderStatus>().GetAll()
+                        .Where(orderStatus => orderStatus.ID == order.OrderStatusId).FirstOrDefault();
+                }
+                ViewBag.Orders = orders;
+
                 return View(user);
             }
             else
@@ -75,7 +88,7 @@ namespace FishStore.Controllers
                     .Where(u => u.Email == model.Email).FirstOrDefault();
                 if (user == null)
                 {
-                    user = new User { Email = model.Email, Password = model.Password };
+                    user = new User { Email = model.Email, Password = model.Password, Name = model.Name, DeliveryAdress = model.DeliveryAdress };
                     Role userRole = _unitOfWork.GetRepository<Role>().GetAll()
                         .Where(r => r.Name == "user").FirstOrDefault();
                     if (userRole != null)

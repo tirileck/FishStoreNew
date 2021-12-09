@@ -36,15 +36,18 @@ namespace FishStore.Controllers
             var productRepo = _unitOfWork.GetRepository<ProductObject>();
             var cart = _unitOfWork.GetRepository<Cart>().GetAll()
                 .Where(c => c.User.Email == User.Identity.Name);
-            var order = new Order() { User = currentUser, UserId = currentUser.ID};
-            _unitOfWork.SaveChanges();
-
+            var order = new Order() { User = currentUser, UserId = currentUser.ID, Adress = currentUser.DeliveryAdress};
+            
+            double cost = 0;
             foreach (var cartItem in cart)
             {
                 var product = productRepo.GetAll().Where(p => p.ID == cartItem.ProductId).FirstOrDefault();
                 var orderItem = new OrderItem() { Order = order, Product = product, Count = cartItem.Count };
                 orderItemsRepo.Insert(orderItem);
+                cost += product.Cost * orderItem.Count;
             }
+            order.Cost = cost;
+            orderRepo.Insert(order);
             _unitOfWork.SaveChanges();
             ClearCart();
             return View("Thanks");

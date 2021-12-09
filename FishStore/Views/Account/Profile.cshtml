@@ -8,5 +8,22 @@
         <ul>
             @if(Model.Email != null) 
                 {<li>Почта: @Model.Email</li>}
+            @if(Model.DeliveryAdress != null) 
+                {<li>Адрес для доставки: @Model.DeliveryAdress</li>}
         </ul>
+
+        <div class="display-5">История заказов</div>
+        <br />
+        @foreach(var item in ViewBag.Orders){
+            <div class="card mb-4">
+                    <div class="card-body">
+                    <p><strong>Заказ №@item.ID</strong></p>
+                    <p class="mb-0">Создан: @item.CreateDate.ToShortDateString()</p>
+                    <p class="mb-0">Адрес: @item.Adress</p>
+                    <p class="mb-0">Статус: @item.OrderStatus.Name</p>
+                    <p class="mb-0">Стоимость: @item.Cost р.</p>
+                    </div>
+            </div>
+        }
+
 </div>

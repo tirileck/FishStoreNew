@@ -22,6 +22,11 @@ namespace FishStore.Entities.Accounting
         public string Name { get; set; }
 
         /// <summary>
+        /// Получает или задает Адрес доставки
+        /// </summary>
+        public string DeliveryAdress { get; set; }
+
+        /// <summary>
         /// Получает или задает День рождения пользователя
         /// </summary>
         [DataType(DataType.EmailAddress)]

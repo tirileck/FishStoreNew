@@ -8,6 +8,9 @@ namespace FishStore.Models.Accounting
         [Required(ErrorMessage = "Не указано ФИО")]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "Не указан адрес доставки")]
+        public string DeliveryAdress { get; set; }
+
         [Required(ErrorMessage = "Не указан Email")]
         public string Email { get; set; }
 
